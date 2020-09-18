@@ -6,8 +6,6 @@ const rightEyePupil = document.querySelector('.rightEyePupil');
 const mouth = document.querySelector('.mouth');
 const windowWidth = window.screen.width;
 const windowHeight = window.screen.height;
-leftEyePupil.style.left = '35px';
-rightEyePupil.style.left = '35px';
 
 var leftEyeX = round(leftEye.getBoundingClientRect().left);
 var leftEyeY = round(leftEye.getBoundingClientRect().top);
@@ -17,49 +15,11 @@ var mouthLeft = round(mouth.getBoundingClientRect().left);
 var mouthTop = round(mouth.getBoundingClientRect().top);
 var mouthRight = round(mouth.getBoundingClientRect().right);
 var mouthBottom = round(mouth.getBoundingClientRect().bottom);
+var mouthX = ((mouthRight - mouthLeft) / 2) + mouthLeft;
+var mouthY = ((mouthBottom - mouthTop) / 2) + mouthTop;
 
 function changeStyleLeft(elem, value) {
 	elem.style.left = value + 'px';
-}
-
-function closeMouth(mouth, x, y, left, right, top, bottom) {
-	if (x >= left && x <= right && y >= top && y <= bottom) {
-		mouth.style.height = '2px';
-	}
-	else {
-		mouth.style.height = '20px';
-	}
-}
-
-function mouthBorderChange(mouth, x, y, left, right, top, bottom) {
-	if ((x <= left - 150 || x >= right + 150) || (y >= bottom + 150)) {
-		if ((x <= left - 150 || x >= right + 150) && (y >= top - 100 || y <= bottom + 100)) {
-			if (x <= left - 150) {
-				var step = x / ((left - 150) / 70);
-				mouth.style.borderRadius = (70 - step) + 'px ' + (70 - step) + 'px ' + step + 'px ' + step + 'px';
-			}
-			if (x >= right + 150) {
-				var step = (windowWidth - x) / ((windowWidth - (right + 150)) / 70);
-				mouth.style.borderRadius = (70 - step) + 'px ' + (70 - step) + 'px ' + step + 'px ' + step + 'px';
-			}
-		}
-		if ((y >= bottom + 100) && (x > left - 150 && x < right + 150)) {
-			if (y >= bottom + 100) {
-				var step = (windowHeight - y) / ((windowHeight - (bottom + 100)) / 70);
-				mouth.style.borderRadius = (70 - step) + 'px ' + (70 - step) + 'px ' + step + 'px ' + step + 'px';
-			}
-		}
-
-	}
-	else {
-		if ((x > left - 100 || x < right + 100) || (y < bottom + 100)) {
-			mouth.style.borderRadius = '70px 70px 70px 70px';
-			mouth.style.width = '40px';
-		}
-		if ((x > left - 150 || x < right + 150) || (y < bottom + 100)) {
-			mouth.style.borderRadius = '0px 0px 70px 70px';
-		}
-	}
 }
 
 function arc(x, y) {
@@ -124,6 +84,30 @@ function eyeMove(eye, pupil, x, y, tg, value) {
 		pupil.classList.remove('closeEye');
 	}
 }
+function mouthMove(mouth, x, y, left, right, top, bottom, value) {
+
+
+	let cathetus1, cathetus2;
+	cathetus1 = Math.abs(x);
+	cathetus2 = Math.abs(y);
+	let hypotenuse = Math.round(Math.sqrt(Math.pow(cathetus1, 2) + Math.pow(cathetus2, 2)));
+	let border1, border2;
+	border1 = Math.round(Math.sqrt(hypotenuse));
+	border2 = 25;
+
+	mouth.style.borderRadius = border1 + 'px ' + border1 + 'px ' + border2 + 'px ' + border2 + 'px';
+
+	if (x > -value && x < value && y > -value && y < value) {
+
+		mouth.classList.add('closeMouth');
+
+	}
+	else {
+
+		mouth.classList.remove('closeMouth');
+	}
+
+}
 
 // desctope
 
@@ -131,17 +115,22 @@ document.onmousemove = function changePosition(e) {
 
 	changeStyleLeft(leftEyePupil, 70);
 	changeStyleLeft(rightEyePupil, 70);
-	let eventLeftEyeX = mouseCoordsX(e) - (leftEyeX + 50);
-	let eventLeftEyeY = mouseCoordsY(e) - (leftEyeY + 50);
-	let eventRightEyeX = mouseCoordsX(e) - (rightEyeX + 50);
-	let eventRightEyeY = mouseCoordsY(e) - (rightEyeY + 50);
 	let mouseX = mouseCoordsX(e);
 	let mouseY = mouseCoordsY(e);
+
+	let eventLeftEyeX = mouseX - (leftEyeX + 50);
+	let eventLeftEyeY = mouseY - (leftEyeY + 50);
+
+	let eventRightEyeX = mouseX - (rightEyeX + 50);
+	let eventRightEyeY = mouseY - (rightEyeY + 50);
+
 	let leftEyeTg = arc(eventLeftEyeX, eventLeftEyeY);
 	let rightEyeTg = arc(eventRightEyeX, eventRightEyeY);
 
-	closeMouth(mouth, mouseX, mouseY, mouthLeft, mouthRight, mouthTop, mouthBottom);
-	mouthBorderChange(mouth, mouseX, mouseY, mouthLeft, mouthRight, mouthTop, mouthBottom);
+	let eventMouthX = mouseX - mouthX;
+	let eventMouthY = mouseY - mouthY;
+
+	mouthMove(mouth, eventMouthX, eventMouthY, mouthLeft, mouthRight, mouthTop, mouthBottom, 20);
 	eyeMove(leftEye, leftEyePupil, eventLeftEyeX, eventLeftEyeY, leftEyeTg, 40);
 	eyeMove(rightEye, rightEyePupil, eventRightEyeX, eventRightEyeY, rightEyeTg, 40);
 
@@ -162,12 +151,12 @@ window.addEventListener('touchmove', function (event) {
 	let rightEyeTg = arc(eventRightEyeX, eventRightEyeY);
 	let clientX = event.touches[0].clientX;
 	let clientY = event.touches[0].clientY;
-
+	let eventMouthX = clientX - mouthX;
+	let eventMouthY = clientY - mouthY;
 	eyeMove(leftEye, leftEyePupil, eventLeftEyeX, eventLeftEyeY, leftEyeTg, 40);
 	eyeMove(rightEye, rightEyePupil, eventRightEyeX, eventRightEyeY, rightEyeTg, 40);
 
-	closeMouth(mouth, clientX, clientY, mouthLeft, mouthRight, mouthTop, mouthBottom);
-	mouthBorderChange(mouth, clientX, clientY, mouthLeft, mouthRight, mouthTop, mouthBottom);
+	mouthMove(mouth, eventMouthX, eventMouthY, mouthLeft, mouthRight, mouthTop, mouthBottom, 30);
 
 }, { passive: false });
 

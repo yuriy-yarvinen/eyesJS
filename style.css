@@ -47,11 +47,11 @@
 }
 
 .leftEyePupil {
-  left: 70px;
+  left: 35px;
 }
 
 .rightEyePupil {
-  left: 70px;
+  left: 35px;
 }
 
 .closeEye {
@@ -60,6 +60,13 @@
   width: 100%;
   height: 5px;
   left: 0;
+}
+.mouth.closeMouth {
+	width: 40px;
+	height: 2px;
+	border-radius: 70px 70px 70px 70px;
+	background-color: #000;
+	margin: 10px auto 0;
 }
 
 .mouth{
