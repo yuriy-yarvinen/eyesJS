@@ -84,7 +84,7 @@ function eyeMove(eye, pupil, x, y, tg, value) {
 		pupil.classList.remove('closeEye');
 	}
 }
-function mouthMove(mouth, x, y, left, right, top, bottom, value) {
+function mouthMove(mouth, x, y, value) {
 
 
 	let cathetus1, cathetus2;
@@ -130,7 +130,7 @@ document.onmousemove = function changePosition(e) {
 	let eventMouthX = mouseX - mouthX;
 	let eventMouthY = mouseY - mouthY;
 
-	mouthMove(mouth, eventMouthX, eventMouthY, mouthLeft, mouthRight, mouthTop, mouthBottom, 20);
+	mouthMove(mouth, eventMouthX, eventMouthY, 20);
 	eyeMove(leftEye, leftEyePupil, eventLeftEyeX, eventLeftEyeY, leftEyeTg, 40);
 	eyeMove(rightEye, rightEyePupil, eventRightEyeX, eventRightEyeY, rightEyeTg, 40);
 
@@ -156,7 +156,6 @@ window.addEventListener('touchmove', function (event) {
 	eyeMove(leftEye, leftEyePupil, eventLeftEyeX, eventLeftEyeY, leftEyeTg, 40);
 	eyeMove(rightEye, rightEyePupil, eventRightEyeX, eventRightEyeY, rightEyeTg, 40);
 
-	mouthMove(mouth, eventMouthX, eventMouthY, mouthLeft, mouthRight, mouthTop, mouthBottom, 30);
+	mouthMove(mouth, eventMouthX, eventMouthY, 30);
 
 }, { passive: false });
-

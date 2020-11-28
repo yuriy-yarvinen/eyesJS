@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Eyes</title>
+</head>
+
+<body>
+	<div class="face">
+		<div class="eyes">
+			<div class="leftEye">
+				<div class="leftEyePupil"></div>
+			</div>
+			<div class="rightEye">
+				<div class="rightEyePupil"></div>
+			</div>
+			<div style="clear: both;"></div>
+		</div>
+		<div class="mouth">
+		</div>
+	</div>
+	<script>
+		var faceConfig = {
+			objectClass: {
+				face: 'face',
+				eyes: 'eyes',
+				leftEye: 'leftEye',
+				rightEye: 'rightEye',
+				leftEyePupil: 'leftEyePupil',
+				rightEyePupil: 'rightEyePupil',
+				mouth: 'mouth',
+		
+			},
+			css: {
+				face: {
+					position: 'relative',
+					margin: '0 auto',
+					width: '230px',
+					border: '3px solid red',
+					borderRadius: '100%',
+					height: '200px',
+					zIndex: '1'
+				},
+				leftEye: {
+					width: '100px',
+					height: '100px',
+					border: '3px solid red',
+					borderRadius: '100%',
+					float: 'left',
+					position: 'relative',
+					background: '#fff',
+					zIndex: '100',
+					transform: 'rotate(0deg)',
+					marginRight: '9px'
+				},
+				rightEye: {
+					width: '100px',
+					height: '100px',
+					border: '3px solid black',
+					borderRadius: '100%',
+					float: 'left',
+					position: 'relative',
+					background: '#fff',
+					backgroundColor: '#fff',
+					zIndex: '100',
+					transform: 'rotate(0deg)',
+					marginLeft: '9px'
+				},
+				leftEyePupil: {
+					width: '30px',
+					height: '30px',
+					left: '35px',
+					borderRadius: '100%',
+					background: 'blue',
+					position: 'absolute',
+					top: '35px'
+				},
+				rightEyePupil: {
+					width: '30px',
+					height: '30px',
+					left: '35px',
+					borderRadius: '100%',
+					background: 'green',
+					position: 'absolute',
+					top: '35px'
+				},
+				closeEye: {
+					borderRadius: '0',
+					margin: '15px 0 0 0px',
+					width: '100%',
+					height: '5px',
+					left: '0'
+				},
+				mouth: {
+					width: '40px',
+					height: '25px',
+					borderRadius: '70px 70px 70px 70px',
+					background: '#000',
+					margin: '10px auto 0'
+				},
+				closeMouth: {
+					width: '40px',
+					height: '2px',
+					borderRadius: '70px 70px 70px 70px',
+					background: '#000',
+					margin: '10px auto 0'
+				}
+			}
+		};
+	</script>
+
+</body>
+
+</html>

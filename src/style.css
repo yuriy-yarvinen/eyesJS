@@ -1,5 +1,5 @@
 
-.head{
+.face{
 	width: 230px;
 	margin: 0 auto;
 	position: relative;
@@ -8,12 +8,7 @@
 	height: 200px;
 	z-index: 1;
 }
-.eyes::after {
-  clear: both;
-}
-.eyes {
-	width: 100%;
-}
+
 .leftEye, .rightEye {
   width: 100px;
   height: 100px;
@@ -76,4 +71,3 @@
 	background-color: #000;
 	margin: 10px auto 0;
 }
-/*# sourceMappingURL=style.css.map */
