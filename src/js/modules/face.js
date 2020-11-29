@@ -11,84 +11,83 @@ const face = (userSettings = {}) => {
 		},
 		css: {
 			face: {
-				position: 'relative',
-				margin: '0 auto',
-				width: '230px',
-				border: '3px solid black',
-				borderRadius: '100%',
-				height: '200px',
-				zIndex: '1'
+				'position': 'relative',
+				'width': '230px',
+				'border': '3px solid black',
+				'border-radius': '100%',
+				'z-index': '1',
+				'height': '200px'
 			},
 			eyes: {
-				width: '100%'
+				'width': '100%'
 			},
 			leftEye: {
-				width: '100px',
-				height: '100px',
-				border: '3px solid black',
-				borderRadius: '100%',
-				float: 'left',
-				position: 'relative',
-				background: '#fff',
-				zIndex: '100',
-				transform: 'rotate(0deg)',
-				marginRight: '9px'
+				'width': '100px',
+				'height': '100px',
+				'border': '3px solid black',
+				'border-radius': '100%',
+				'float': 'left',
+				'position': 'relative',
+				'background': '#fff',
+				'z-index': '100',
+				'transform': 'rotate(0deg)',
+				'margin-right': '9px'
 			},
 			rightEye: {
-				width: '100px',
-				height: '100px',
-				border: '3px solid black',
-				borderRadius: '100%',
-				float: 'left',
-				position: 'relative',
-				background: '#fff',
-				zIndex: '100',
-				transform: 'rotate(0deg)',
-				marginLeft: '9px'
+				'width': '100px',
+				'height': '100px',
+				'border': '3px solid black',
+				'border-radius': '100%',
+				'float': 'left',
+				'position': 'relative',
+				'background': '#fff',
+				'z-index': '100',
+				'transform': 'rotate(0deg)',
+				'margin-left': '9px'
 			},
 			leftEyePupil: {
-				width: '30px',
-				height: '30px',
-				left: '35px',
-				borderRadius: '100%',
-				background: 'black',
-				position: 'absolute',
-				top: '35px'
+				'width': '30px',
+				'height': '30px',
+				'left': '35px',
+				'border-radius': '100%',
+				'background': 'black',
+				'position': 'absolute',
+				'top': '35px'
 			},
 			rightEyePupil: {
-				width: '30px',
-				height: '30px',
-				left: '35px',
-				borderRadius: '100%',
-				background: 'black',
-				position: 'absolute',
-				top: '35px'
+				'width': '30px',
+				'height': '30px',
+				'left': '35px',
+				'border-radius': '100%',
+				'background': 'black',
+				'position': 'absolute',
+				'top': '35px'
 			},
-			closeEye: {
-				borderRadius: '0',
-				margin: '15px 0 0 0px',
-				width: '100%',
-				height: '5px',
-				left: '0'
+			closeLeftEye: {
+				'border-radius': '0',
+				'margin-top': '15px',
+				'width': '100%',
+				'height': '5px',
+				'left': '0'
+			},
+			closeRightEye: {
+				'border-radius': '0',
+				'margin-top': '15px',
+				'width': '100%',
+				'height': '5px',
+				'left': '0'
 			},
 			mouth: {
-				width: '40px',
-				height: '25px',
-				borderRadius: '70px 70px 70px 70px',
-				background: '#000',
-				margin: '10px auto 0'
-			},
-			closeMouth: {
-				width: '40px',
-				height: '2px',
-				borderRadius: '70px 70px 70px 70px',
-				background: '#000',
-				margin: '10px auto 0'
+				'width': '40px',
+				'height': '25px',
+				'border-radius': '70px 70px 70px 70px',
+				'background': '#000',
+				'margin-top': '10px',
+				'margin-left': 'auto',
+				'margin-right': 'auto'
 			}
 		}
 	};
-
-
 
 	function checkValue(value) {
 		if (
@@ -101,6 +100,50 @@ const face = (userSettings = {}) => {
 		}
 	}
 
+	function getValueFromProportion(defaultValue1, defaultValue2, currentValue) {
+		currentValue = currentValue.replace(/%|px|pt/, '');
+		defaultValue1 = defaultValue1.replace(/%|px|pt/, '');
+		defaultValue2 = defaultValue2.replace(/%|px|pt/, '');
+
+		let proportion = Math.round((defaultValue1 / defaultValue2) * 1000) / 1000;
+		let valueFromProportion = Math.round((currentValue * proportion) * 1000) / 1000;
+
+		return valueFromProportion;
+	}
+
+	function returnNumber(value) {
+		return value.replace(/%|px|pt/, '');
+	}
+
+	let metrik = 'px';
+
+	// set css with proportions
+
+	let defaultWidth = userSettings.css.face.width || defaultSetting.css.face.width;
+	defaultSetting.css.face.height = getValueFromProportion('200', '230', defaultWidth) + metrik;
+	defaultSetting.css.leftEye.width = getValueFromProportion('100', '230', defaultWidth) + metrik;
+	defaultSetting.css.leftEye.height = getValueFromProportion('100', '230', defaultWidth) + metrik;
+	let leftEyeMarginRight = getValueFromProportion('9', '260', defaultWidth);
+	defaultSetting.css.leftEye['margin-right'] = leftEyeMarginRight > 7 ? leftEyeMarginRight + metrik : '0px';
+	defaultSetting.css.rightEye.width = getValueFromProportion('100', '230', defaultWidth) + metrik;
+	defaultSetting.css.rightEye.height = getValueFromProportion('100', '230', defaultWidth) + metrik;
+	let rightEyeMarginLeft = getValueFromProportion('9', '260', defaultWidth);
+	defaultSetting.css.rightEye['margin-left'] = rightEyeMarginLeft > 5 ? rightEyeMarginLeft + metrik : '0px';
+	defaultSetting.css.leftEyePupil.width = getValueFromProportion('30', '230', defaultWidth) + metrik;
+	defaultSetting.css.leftEyePupil.height = getValueFromProportion('30', '230', defaultWidth) + metrik;
+	defaultSetting.css.leftEyePupil.left = getValueFromProportion('35', '230', defaultWidth) + metrik;
+	defaultSetting.css.leftEyePupil.top = getValueFromProportion('35', '230', defaultWidth) + metrik;
+	defaultSetting.css.rightEyePupil.width = getValueFromProportion('30', '230', defaultWidth) + metrik;
+	defaultSetting.css.rightEyePupil.height = getValueFromProportion('30', '230', defaultWidth) + metrik;
+	defaultSetting.css.rightEyePupil.left = getValueFromProportion('35', '230', defaultWidth) + metrik;
+	defaultSetting.css.rightEyePupil.top = getValueFromProportion('35', '230', defaultWidth) + metrik;
+	defaultSetting.css.closeLeftEye['margin-top'] = getValueFromProportion('15', '30', defaultSetting.css.leftEyePupil.height) + metrik;
+	defaultSetting.css.closeRightEye['margin-top'] = getValueFromProportion('15', '30', defaultSetting.css.rightEyePupil.height) + metrik;
+	defaultSetting.css.mouth.width = getValueFromProportion('40', '230', defaultWidth) + metrik;
+	defaultSetting.css.mouth.height = getValueFromProportion('25', '230', defaultWidth) + metrik;
+	defaultSetting.css.mouth['margin-top'] = getValueFromProportion('10', '200', defaultSetting.css.face.height) + metrik;
+
+	// rebuild settings
 	if (Object.keys(userSettings).length != 0) {
 		if (checkValue(userSettings.objectClass)) {
 			if (Object.keys(userSettings.objectClass).length != 0) {
@@ -117,9 +160,7 @@ const face = (userSettings = {}) => {
 					if (checkValue(defaultSetting.css[cssKey])) {
 						if (Object.keys(userSettings.css[cssKey]).length != 0) {
 							for (let key in userSettings.css[cssKey]) {
-								if (checkValue(defaultSetting.css[cssKey][key])) {
-									defaultSetting.css[cssKey][key] = userSettings.css[cssKey][key];
-								}
+								defaultSetting.css[cssKey][key] = userSettings.css[cssKey][key];
 							}
 						}
 					}
@@ -127,6 +168,7 @@ const face = (userSettings = {}) => {
 			}
 		}
 	}
+
 	const face = document.querySelector('.' + defaultSetting.objectClass.face);
 	const leftEye = document.querySelector('.' + defaultSetting.objectClass.leftEye);
 	const leftEyePupil = document.querySelector('.' + defaultSetting.objectClass.leftEyePupil);
@@ -134,27 +176,13 @@ const face = (userSettings = {}) => {
 	const rightEyePupil = document.querySelector('.' + defaultSetting.objectClass.rightEyePupil);
 	const mouth = document.querySelector('.' + defaultSetting.objectClass.mouth);
 
-
 	function setStyle(settings) {
 		let str = '';
 
 		for (let className in settings) {
-
 			str += '.' + className + '{\n';
 			for (let cssName in settings[className]) {
 				var cssCurname = cssName;
-				if (cssName == 'borderRadius') {
-					cssCurname = 'border-radius';
-				}
-				if (cssName == 'zIndex') {
-					cssCurname = 'z-index';
-				}
-				if (cssName == 'marginRight') {
-					cssCurname = 'margin-right';
-				}
-				if (cssName == 'marginLeft') {
-					cssCurname = 'margin-left';
-				}
 
 				str += cssCurname + ':' + settings[className][cssName] + ';\n';
 			}
@@ -164,8 +192,7 @@ const face = (userSettings = {}) => {
 		return str;
 	}
 
-
-
+	// set styles
 	if (!face.classList.contains('face-active')) {
 		const head = document.head || document.getElementsByTagName('head')[0],
 			style = document.createElement('style');
@@ -185,18 +212,25 @@ const face = (userSettings = {}) => {
 
 		face.classList.add('face-active');
 	}
+	
+	var eyesPluginButton;
+	if (checkValue(userSettings.objectClass.button)) {
+		var eyesPluginButton = document.querySelector('.' + userSettings.objectClass.button);
+	}
+	else {
+		var eyesPluginButton = mouth;
+	}
 
 	var leftEyeX = round(leftEye.getBoundingClientRect().left);
 	var leftEyeY = round(leftEye.getBoundingClientRect().top);
 	var rightEyeX = round(rightEye.getBoundingClientRect().left);
 	var rightEyeY = round(rightEye.getBoundingClientRect().top);
-	var mouthLeft = round(mouth.getBoundingClientRect().left);
-	var mouthTop = round(mouth.getBoundingClientRect().top);
-	var mouthRight = round(mouth.getBoundingClientRect().right);
-	var mouthBottom = round(mouth.getBoundingClientRect().bottom);
+	var mouthLeft = round(eyesPluginButton.getBoundingClientRect().left);
+	var mouthTop = round(eyesPluginButton.getBoundingClientRect().top);
+	var mouthRight = round(eyesPluginButton.getBoundingClientRect().right);
+	var mouthBottom = round(eyesPluginButton.getBoundingClientRect().bottom);
 	var mouthX = ((mouthRight - mouthLeft) / 2) + mouthLeft;
 	var mouthY = ((mouthBottom - mouthTop) / 2) + mouthTop;
-
 
 	function changeStyleLeft(elem, value) {
 		elem.style.left = value + 'px';
@@ -215,7 +249,6 @@ const face = (userSettings = {}) => {
 		if (x > 0 && y > 0) {
 			return (Math.PI / 2 - Math.atan(x / y)) * 57.2958;
 		}
-
 	}
 
 	function clientCoordsX(e) {
@@ -232,41 +265,53 @@ const face = (userSettings = {}) => {
 	}
 
 	function mouseCoordsX(e) {
+		var x;
 		// For IE
 		if (document.all) {
-			var x = event.x + document.body.scrollLeft;
+			x = event.x + document.body.scrollLeft;
 			// For others browsers
 		} else {
-			var x = e.pageX; // mouse coordinate X
+			x = e.pageX; // mouse coordinate X
 		}
 		return x;
 	}
+
 	function mouseCoordsY(e) {
+		var y;
 		// For IE
 		if (document.all) {
-			var y = event.y + document.body.scrollTop;
+			y = event.y + document.body.scrollTop;
 			// For others browsers
 		} else {
-			var y = e.pageY; // mouse coordinate Y
+			y = e.pageY; // mouse coordinate Y
 		}
 		return y;
 	}
 
-	function eyeMove(eye, pupil, x, y, tg, value) {
+	function eyeMove(leftOrRight, eye, pupil, x, y, tg, value) {
 		if (x > -value && x < value && y > -value && y < value) {
 			eye.style.transform = 'rotate(0deg)';
-			pupil.classList.add('closeEye');
-			changeStyleLeft(pupil, 0);
+			if (leftOrRight == 'left') {
+				pupil.classList.add('closeLeftEye');
+			}
+			if (leftOrRight == 'right') {
+				pupil.classList.add('closeRightEye');
+			}
 
+			changeStyleLeft(pupil, 0);
 		}
 		else {
 			eye.style.transform = 'rotate(' + tg + 'deg)';
-			pupil.classList.remove('closeEye');
+			if (leftOrRight == 'left') {
+				pupil.classList.remove('closeLeftEye');
+			}
+			if (leftOrRight == 'right') {
+				pupil.classList.remove('closeRightEye');
+			}
 		}
 	}
+
 	function mouthMove(mouth, x, y, value) {
-
-
 		let cathetus1, cathetus2;
 		cathetus1 = Math.abs(x);
 		cathetus2 = Math.abs(y);
@@ -279,33 +324,23 @@ const face = (userSettings = {}) => {
 		mouth.style.borderTopRightRadius = border1 + 'px';
 		mouth.style.borderBottomLeftRadius = border2 + 'px';
 		mouth.style.borderBottomRightRadius = border2 + 'px';
-
-		if (x > -value && x < value && y > -value && y < value) {
-
-			mouth.classList.add('closeMouth');
-
-		}
-		else {
-
-			mouth.classList.remove('closeMouth');
-		}
-
 	}
 
 	// desctope
 
 	document.onmousemove = (e) => {
 
-		changeStyleLeft(leftEyePupil, 70);
-		changeStyleLeft(rightEyePupil, 70);
+		changeStyleLeft(leftEyePupil, returnNumber(defaultSetting.css.leftEyePupil.left) * 2);
+		changeStyleLeft(rightEyePupil, returnNumber(defaultSetting.css.rightEyePupil.left) * 2);
+
 		let mouseX = mouseCoordsX(e);
 		let mouseY = mouseCoordsY(e);
 
-		let eventLeftEyeX = mouseX - (leftEyeX + 50);
-		let eventLeftEyeY = mouseY - (leftEyeY + 50);
+		let eventLeftEyeX = mouseX - (leftEyeX + returnNumber(defaultSetting.css.leftEye.width) / 2);
+		let eventLeftEyeY = mouseY - (leftEyeY + returnNumber(defaultSetting.css.leftEye.height) / 2);
 
-		let eventRightEyeX = mouseX - (rightEyeX + 50);
-		let eventRightEyeY = mouseY - (rightEyeY + 50);
+		let eventRightEyeX = mouseX - (rightEyeX + returnNumber(defaultSetting.css.rightEye.width) / 2);
+		let eventRightEyeY = mouseY - (rightEyeY + returnNumber(defaultSetting.css.rightEye.height) / 2);
 
 		let leftEyeTg = arc(eventLeftEyeX, eventLeftEyeY);
 		let rightEyeTg = arc(eventRightEyeX, eventRightEyeY);
@@ -313,9 +348,9 @@ const face = (userSettings = {}) => {
 		let eventMouthX = mouseX - mouthX;
 		let eventMouthY = mouseY - mouthY;
 
-		mouthMove(mouth, eventMouthX, eventMouthY, 20);
-		eyeMove(leftEye, leftEyePupil, eventLeftEyeX, eventLeftEyeY, leftEyeTg, 40);
-		eyeMove(rightEye, rightEyePupil, eventRightEyeX, eventRightEyeY, rightEyeTg, 40);
+		mouthMove(mouth, eventMouthX, eventMouthY, returnNumber(defaultSetting.css.mouth.width) / 2);
+		eyeMove('left', leftEye, leftEyePupil, eventLeftEyeX, eventLeftEyeY, leftEyeTg, returnNumber(defaultSetting.css.leftEye.width) / 2);
+		eyeMove('right', rightEye, rightEyePupil, eventRightEyeX, eventRightEyeY, rightEyeTg, returnNumber(defaultSetting.css.rightEye.width) / 2);
 
 	};
 
@@ -324,23 +359,29 @@ const face = (userSettings = {}) => {
 	window.addEventListener('touchmove', (event) => {
 		event.preventDefault();
 		event.stopPropagation();
-		changeStyleLeft(leftEyePupil, 70);
-		changeStyleLeft(rightEyePupil, 70);
-		let eventLeftEyeX = clientCoordsX(event) - (leftEyeX + 50);
-		let eventLeftEyeY = clientCoordsY(event) - (leftEyeY + 50);
-		let eventRightEyeX = clientCoordsX(event) - (rightEyeX + 50);
-		let eventRightEyeY = clientCoordsY(event) - (rightEyeY + 50);
+
+		changeStyleLeft(leftEyePupil, returnNumber(defaultSetting.css.leftEyePupil.left) * 2);
+		changeStyleLeft(rightEyePupil, returnNumber(defaultSetting.css.rightEyePupil.left) * 2);
+
+		let eventLeftEyeX = clientCoordsX(event) - (leftEyeX + returnNumber(defaultSetting.css.leftEye.width) / 2);
+		let eventLeftEyeY = clientCoordsY(event) - (leftEyeY + returnNumber(defaultSetting.css.leftEye.height) / 2);
+
+		let eventRightEyeX = clientCoordsX(event) - (rightEyeX + returnNumber(defaultSetting.css.rightEye.width) / 2);
+		let eventRightEyeY = clientCoordsY(event) - (rightEyeY + returnNumber(defaultSetting.css.rightEye.height) / 2);
+
 		let leftEyeTg = arc(eventLeftEyeX, eventLeftEyeY);
 		let rightEyeTg = arc(eventRightEyeX, eventRightEyeY);
+
 		let clientX = event.touches[0].clientX;
 		let clientY = event.touches[0].clientY;
+
 		let eventMouthX = clientX - mouthX;
 		let eventMouthY = clientY - mouthY;
-		eyeMove(leftEye, leftEyePupil, eventLeftEyeX, eventLeftEyeY, leftEyeTg, 40);
-		eyeMove(rightEye, rightEyePupil, eventRightEyeX, eventRightEyeY, rightEyeTg, 40);
 
-		mouthMove(mouth, eventMouthX, eventMouthY, 30);
+		eyeMove('left', leftEye, leftEyePupil, eventLeftEyeX, eventLeftEyeY, leftEyeTg, returnNumber(defaultSetting.css.leftEye.width) / 2);
+		eyeMove('right', rightEye, rightEyePupil, eventRightEyeX, eventRightEyeY, rightEyeTg, returnNumber(defaultSetting.css.rightEye.width) / 2);
 
+		mouthMove(mouth, eventMouthX, eventMouthY, returnNumber(defaultSetting.css.mouth.width) / 2);
 	}, { passive: false });
 };
 

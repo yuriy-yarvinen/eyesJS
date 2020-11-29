@@ -1,9 +1,7 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCssAssetPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
@@ -17,7 +15,6 @@ const optimization = () => {
   if (isProd) {
     config.minimize = true,
       config.minimizer = [
-        new OptimizeCssAssetPlugin(),
         new TerserWebpackPlugin()
       ]
   }
@@ -66,20 +63,6 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              publicPath: '../'
-            }
-          },
-          {
-            loader: 'css-loader',
-          }
-        ]
-      },
-      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: jsLoader()
@@ -88,9 +71,11 @@ module.exports = {
 	},
 	plugins: [
 		new CleanWebpackPlugin(),
-		new HtmlWebpackPlugin({
-      template: './index.html',
-      cache: false
-    })
-	]
+    new CopyWebpackPlugin({
+      patterns: [{
+        from: path.resolve(__dirname, 'src/index.html'),
+        to: path.resolve(__dirname, 'dist/index.html')
+      }]
+    }),  
+  ]
 };
