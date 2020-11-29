@@ -68,14 +68,16 @@ const face = (userSettings = {}) => {
 				'margin-top': '15px',
 				'width': '100%',
 				'height': '5px',
-				'left': '0'
+				'left': '0',
+				'background': '#000'
 			},
 			closeRightEye: {
 				'border-radius': '0',
 				'margin-top': '15px',
 				'width': '100%',
 				'height': '5px',
-				'left': '0'
+				'left': '0',
+				'background': '#000'
 			},
 			mouth: {
 				'width': '40px',
