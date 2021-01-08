@@ -227,10 +227,10 @@ const face = (userSettings = {}) => {
 	
 	var eyesPluginButton;
 	if (checkValue(userSettings.objectClass.button)) {
-		var eyesPluginButton = document.querySelector('.' + userSettings.objectClass.button);
+		eyesPluginButton = document.querySelector('.' + userSettings.objectClass.button);
 	}
 	else {
-		var eyesPluginButton = mouth;
+		eyesPluginButton = mouth;
 	}
 
 	var leftEyeX = round(leftEye.getBoundingClientRect().left);
@@ -268,7 +268,7 @@ const face = (userSettings = {}) => {
 		return x;
 	}
 	function clientCoordsY(e) {
-		var y = e.changedTouches[0].pageY // coordinate Y 
+		var y = e.changedTouches[0].pageY; // coordinate Y 
 		return y;
 	}
 
