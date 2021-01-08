@@ -16,7 +16,8 @@ const face = (userSettings = {}) => {
 				'border': '3px solid black',
 				'border-radius': '100%',
 				'z-index': '1',
-				'height': '200px'
+				'height': '200px',
+				'box-sizing': 'content-box'
 			},
 			eyes: {
 				'width': '100%'
@@ -31,7 +32,8 @@ const face = (userSettings = {}) => {
 				'background': '#fff',
 				'z-index': '100',
 				'transform': 'rotate(0deg)',
-				'margin-right': '9px'
+				'margin-right': '9px',
+				'box-sizing': 'content-box'
 			},
 			rightEye: {
 				'width': '100px',
@@ -43,7 +45,8 @@ const face = (userSettings = {}) => {
 				'background': '#fff',
 				'z-index': '100',
 				'transform': 'rotate(0deg)',
-				'margin-left': '9px'
+				'margin-left': '9px',
+				'box-sizing': 'content-box'
 			},
 			leftEyePupil: {
 				'width': '30px',
@@ -120,8 +123,17 @@ const face = (userSettings = {}) => {
 	let metrik = 'px';
 
 	// set css with proportions
+	let checkWidth = Number(returnNumber(userSettings.css.face.width));
+	if(checkWidth < 100){
+		userSettings.css.face.width = '100px';
+	}
+
+	if(checkWidth > 500){
+		userSettings.css.face.width = '500px';
+	}
 
 	let defaultWidth = userSettings.css.face.width || defaultSetting.css.face.width;
+
 	defaultSetting.css.face.height = getValueFromProportion('200', '230', defaultWidth) + metrik;
 	defaultSetting.css.leftEye.width = getValueFromProportion('100', '230', defaultWidth) + metrik;
 	defaultSetting.css.leftEye.height = getValueFromProportion('100', '230', defaultWidth) + metrik;
@@ -202,8 +214,6 @@ const face = (userSettings = {}) => {
 		var css = setStyle(defaultSetting.css);
 
 		head.appendChild(style);
-
-		style.type = 'text/css';
 
 		if (style.styleSheet) {
 			// This is required for IE8 and below.

@@ -32,19 +32,19 @@ Animated face javascript
 		var faceConfig = {
 			/// set blocks classes
 			objectClass: {
-				face: 'face',
-				eyes: 'eyes',
-				leftEye: 'leftEye',
-				rightEye: 'rightEye',
-				leftEyePupil: 'leftEyePupil',
-				rightEyePupil: 'rightEyePupil',
-				mouth: 'mouth',
-				button: 'face-button',
+				face: "face",
+				eyes: "eyes",
+				leftEye: "leftEye",
+				rightEye: "rightEye",
+				leftEyePupil: "leftEyePupil",
+				rightEyePupil: "rightEyePupil",
+				mouth: "mouth",
+				button: "face-button",
 			},
 			/// css style customising
 			css: {
 				face: {
-					width: '350px',
+					width: "350px",
 				}
 			}
 		};
@@ -58,50 +58,50 @@ Animated face javascript
 
 ```
 	objectClass: {
-		leftEye: 'leftEye',
-		rightEye: 'rightEye',
-		leftEyePupil: 'leftEyePupil',
-		rightEyePupil: 'rightEyePupil',
-		mouth: 'mouth',
-		face: 'face',
-		eyes: 'eyes',
+		leftEye: "leftEye",
+		rightEye: "rightEye",
+		leftEyePupil: "leftEyePupil",
+		rightEyePupil: "rightEyePupil",
+		mouth: "mouth",
+		face: "face",
+		eyes: "eyes",
 	},
 	css: {
 		face: {
-			'border': '3px solid black',
+			"border": "3px solid black",
 		},
 		leftEye: {
-			'border': '3px solid black',
-			'background': '#fff',
+			"border": "3px solid black",
+			"background": "#fff",
 		},
 		rightEye: {
-			'border': '3px solid black',
-			'background': '#fff',
+			"border": "3px solid black",
+			"background": "#fff",
 		},
 		leftEyePupil: {
-			'background': 'black',
+			"background": "black",
 		},
 		rightEyePupil: {
-			'background': 'black',
+			"background": "black",
 		},
 		closeLeftEye: {
-			'background': '#000',
+			"background": "#000",
 		},
 		closeRightEye: {
-			'background': '#000',
+			"background": "#000",
 		},
 		mouth: {
-			'background': '#000',
+			"background": "#000",
 		}
 	}
 ```
 
-It not quite all settings. You can add your css settings, in quotes '' 
+It not quite all settings. You can add your css settings, in quotes "" 
 
 Like so
 ```
 	mouth: {
-		'opacity':0.5,
-		'background': '#000',
+		"opacity":0.5,
+		"background": "#000",
 	}
 ```
