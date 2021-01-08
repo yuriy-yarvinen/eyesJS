@@ -1,6 +1,7 @@
 # eyesJS
 Animated face javascript
 
+eyes.min.js file, may place in head block, if needed on all pages. Just upload it on your server.
 # Usage
 
 
@@ -49,7 +50,7 @@ Animated face javascript
 			}
 		};
 	</script>
-<!-- js file, may place in head block, if needed on all pages -->
+
 <script src="eyes.min.js"></script></body>
 ```
 

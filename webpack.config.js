@@ -75,7 +75,11 @@ module.exports = {
       patterns: [{
         from: path.resolve(__dirname, 'src/index.html'),
         to: path.resolve(__dirname, 'dist/index.html')
+      },
+      {
+        from: path.resolve(__dirname, 'dist/eyes.min.js'),
+        to: path.resolve(__dirname, './eyes.min.js')
       }]
-    }),  
+    })
   ]
 };
