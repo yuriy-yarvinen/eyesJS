@@ -369,7 +369,7 @@ const face = (userSettings = {}) => {
 	// mobile
 
 	window.addEventListener('touchmove', (event) => {
-		event.preventDefault();
+		// event.preventDefault();
 		event.stopPropagation();
 
 		changeStyleLeft(leftEyePupil, returnNumber(defaultSetting.css.leftEyePupil.left) * 2);
